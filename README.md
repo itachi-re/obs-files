@@ -663,8 +663,8 @@ If you are a copyright holder and believe content should be removed:
 
 Made with ❤️ for the Open Build Service community
 
-![GitHub last commit](https://img.shields.io/github/last-commit/your-username/obs-files)
-![GitHub repo size](https://img.shields.io/github/repo-size/your-username/obs-files)
+![GitHub last commit](https://img.shields.io/github/last-commit/itachi-re/obs-files)
+![GitHub repo size](https://img.shields.io/github/repo-size/itachi-re/obs-files)
 
 </div>
 
