@@ -653,7 +653,7 @@ If you are a copyright holder and believe content should be removed:
 
 - **Issues:** [GitHub Issues](https://github.com/your-username/obs-files/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/your-username/obs-files/discussions)
-- **Email:** `your-email@example.com`
+- **Email:** `itachi_re@protonmail.com`
 
 ---
 
