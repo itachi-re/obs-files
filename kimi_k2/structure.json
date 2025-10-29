@@ -1,0 +1,55 @@
+{
+    "outline": {
+        "slideNumber": 1,
+        "title": "libtg_owt Build Documentation",
+        "subTitle": "A Comprehensive Guide to Building Telegram's WebRTC Library on openSUSE"
+    },
+    "tableOfContent": {
+        "slideNumber": 2
+    },
+    "chapters": {
+        "slideNumber": 3,
+        "chapterTitle": "Build Process Documentation",
+        "slides": [
+            {
+                "slideNumber": 4,
+                "slideTitle": "Project Overview",
+                "slideContent": "libtg_owt is a WebRTC library used by Telegram that requires careful packaging for openSUSE Tumbleweed. This documentation chronicles the complex build process, dependency management, and troubleshooting steps required to successfully compile the library using system libraries rather than bundled dependencies. The build process involves resolving conflicts between ffmpeg versions, handling missing dependencies, and addressing Abseil library compatibility issues."
+            },
+            {
+                "slideNumber": 5,
+                "slideTitle": "Initial Setup & FFmpeg Conflict",
+                "slideContent": "The build process begins with setting up the Open Build Service environment for openSUSE Tumbleweed. The first major challenge arises from openSUSE's dual FFmpeg library system - the minimal ffmpeg-mini in the main repository and the full ffmpeg in Packman. The build requires ffmpeg-devel development files, but the default environment includes ffmpeg-mini-libs, creating a package conflict that prevents successful dependency installation."
+            },
+            {
+                "slideNumber": 6,
+                "slideTitle": "Resolving FFmpeg Dependencies",
+                "slideContent": "To resolve the FFmpeg conflict, explicit BuildRequires were added for the full ffmpeg-8 package and its development sub-packages from Packman. Additionally, Conflicts statements were included to force removal of ffmpeg-8-mini-libs and ffmpeg-8-mini-devel. This ensures the build environment uses the full FFmpeg version with all necessary development headers and libraries required for WebRTC functionality."
+            },
+            {
+                "slideNumber": 7,
+                "slideTitle": "Missing Dependencies Discovery",
+                "slideContent": "After resolving FFmpeg issues, the CMake configuration revealed additional missing system dependencies. OpenH264 was required for video encoding capabilities, while libsrtp2 and libcrc32c were needed for secure RTP communication and checksum functionality. Each missing dependency was addressed by adding appropriate BuildRequires statements to ensure all necessary development libraries were available during compilation."
+            },
+            {
+                "slideNumber": 8,
+                "slideTitle": "Abseil Library Compatibility Crisis",
+                "slideContent": "The most complex challenge involved Abseil library compatibility. The source code used various Abseil features (absl::Nonnull, absl::Nullable, absl::optional, absl::string_view) without including necessary header files. Initial attempts using patches failed due to formatting issues. The solution involved using sed commands in the %prep section to replace Abseil types with their C++17 standard equivalents, systematically addressing each compilation error as it appeared."
+            },
+            {
+                "slideNumber": 9,
+                "slideTitle": "Build Configuration & CMake Flags",
+                "slideContent": "The key to using system libraries instead of bundled dependencies is the CMake flag -DTG_OWT_PACKAGED_BUILD:BOOL=OFF. This flag instructs the build system to prefer system-installed libraries over bundled sources. Combined with proper BuildRequires statements, this ensures the package uses centrally managed system libraries, avoiding duplication and ensuring security updates are handled through the standard package management system."
+            },
+            {
+                "slideNumber": 10,
+                "slideTitle": "Final Build Process",
+                "slideContent": "The complete build process involves multiple stages: dependency resolution through BuildRequires, source preparation with sed modifications, CMake configuration with system library preferences, compilation with proper include paths, and final packaging. Each stage must be carefully orchestrated to ensure all dependencies are properly linked and the resulting binary is compatible with the target openSUSE Tumbleweed system."
+            }
+        ]
+    },
+    "final": {
+        "slideNumber": 11,
+        "finalContent": "Successfully building libtg_owt for openSUSE requires careful attention to dependency management, system library integration, and creative problem-solving for compatibility issues. This documentation serves as a comprehensive reference for developers facing similar packaging challenges."
+    }
+}
